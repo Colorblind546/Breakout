@@ -8,6 +8,7 @@ public class BallMovement : MonoBehaviour
     public float moveAbility;
     public float moveTimer;
     float moveTimerReset;
+    public GameObject moveMeter;
     public Rigidbody rb;
     public float speed = 4f;
     bool active = false;
@@ -17,7 +18,7 @@ public class BallMovement : MonoBehaviour
     {
         moveTimerReset = moveTimer;
         rb.GetComponent<Rigidbody>();
-        rb.velocity = new Vector3(0, -speed, 0);
+        rb.velocity = new Vector3(-speed/2, -speed, 0);
     }
 
 
@@ -29,7 +30,7 @@ public class BallMovement : MonoBehaviour
         if (transform.position.y < 0f)
         {
             transform.position = new Vector3(0, 5, 0);
-            rb.velocity = new Vector3(0, -speed, 0);
+            rb.velocity = new Vector3(-speed / 2, -speed, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -58,7 +59,9 @@ public class BallMovement : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             rb.AddForce(direction.normalized, ForceMode.VelocityChange); 
         }
-        
+
+        AbilityMeter meter = moveMeter.GetComponent<AbilityMeter>();
+        meter.MoveMeter(moveTimer, moveTimerReset);
 
     }
 }

@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 10;
     float sprint = 1.5f;
     float speedReset;
+    public GameObject ball;
 
 
     // Start is called before the first frame update
@@ -35,6 +36,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(1, 0, 0) * Time.deltaTime * speed;
+        }
+
+        if (ball.transform.position.y < 0)
+        {
+            transform.position = Vector3.zero;
         }
     }
 }
